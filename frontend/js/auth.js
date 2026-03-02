@@ -14,7 +14,7 @@ async function submitAuth() {
             return;
         }
 
-        const response = await fetch("http://127.0.0.1:8000/users/register", {
+        const response = await fetch("/api/users/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -43,7 +43,7 @@ async function submitAuth() {
         formData.append("username", email);
         formData.append("password", password);
 
-        const response = await fetch("http://127.0.0.1:8000/users/login", {
+        const response = await fetch("/api/users/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -74,7 +74,7 @@ async function submitAuth() {
 async function fetchUserInfo() {
     const token = localStorage.getItem("token");
 
-    const response = await fetch("http://127.0.0.1:8000/users/member", {
+    const response = await fetch("/api/users/member", {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`
@@ -95,7 +95,7 @@ async function logout() {
 
     if (token) {
         try {
-            await fetch("http://127.0.0.1:8000/users/logout", {
+            await fetch("/api/users/logout", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -151,7 +151,7 @@ async function createInspection() {
         return;
     }
 
-    const response = await fetch("http://127.0.0.1:8000/inspections/", {
+    const response = await fetch("/api/inspections/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
