@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/static/css/index.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
     <title>SafeTrack 工安巡檢與異常通知系統</title>
 </head>
 <body>
@@ -15,17 +15,17 @@
 
     <div class="right">
         <div class="right_sign" onclick="openModal()" id="userArea">
-            <img src="/static/images/signup.png" width="30" height="30">
+            <img src="images/signup.png" width="30" height="30">
         </div>
         <div class="right_note2" onclick="gotoInspection()">
-            <img src="/static/images/note_2.png" width="30" height="30">
+            <img src="images/note_2.png" width="30" height="30">
         </div>
     </div>
 </section>
 
 <!-- 漢堡選單設計 -->
 <div class="tag" id="tag" onclick="openSidebar()">
-    <img src="/static/images/menu.png" width="30px" height="30px" />
+    <img src="images/menu.png" width="30px" height="30px" />
 </div>
 <!-- 漢堡選單內容設計 -->
  <!-- Sidebar 背景遮罩 -->
@@ -40,7 +40,7 @@
         <!-- 巡檢系統 主項目 -->
         <div class="menu-item has-submenu">
             <div class="menu-link" onclick="handleInspectionClick(event)">
-                巡檢系統 <img src="/static/images/right_arrow.png" width="10px" height="10px" />
+                巡檢系統 <img src="images/right_arrow.png" width="10px" height="10px" />
             </div>
             <!-- 第一層子選單 -->
             <div class="submenu">
@@ -50,7 +50,7 @@
 
                 <div class="submenu-item has-submenu-right">
                     <div class="submenu-link" onclick="goHistoryPage(event)">
-                        查詢巡檢紀錄 <img src="/static/images/right_arrow.png" width="10px" height="10px" />
+                        查詢巡檢紀錄 <img src="/images/right_arrow.png" width="10px" height="10px" />
                     </div>
                     <!-- 第二層 右側滑出 -->
                     <div class="submenu-right">
@@ -122,10 +122,10 @@
     </div>
 </footer>
 
-<script src="/static/js/config.js"></script>
-<script src="/static/js/auth.js"></script>
-<script src="/static/js/inspections.js"></script>
-<script src="/static/js/ui.js"></script>
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/inspections.js"></script>
+<script src="js/ui.js"></script>
 
 
 </body>
