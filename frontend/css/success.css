@@ -16,14 +16,18 @@ footer {
     display: flex;
     flex: 1 0 auto;
     flex-shrink: 0;
+    align-content: center;
+    justify-content: center;
 }
 
 .footer_text {
     display: flex;
     margin: 0;
-    padding-top: 20px;
-    align-self: flex-start;
+    /* padding-top: 20px; */
+    align-content: center;
+    align-items: center;
     justify-content: center;
+    justify-items: center;
 }
 
 /* 平板版 */

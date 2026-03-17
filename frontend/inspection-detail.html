@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/common.css" />
     <link rel="stylesheet" type="text/css" href="css/detail.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="css/inspection.css" /> -->
     
     
     <title>巡檢紀錄</title>
@@ -40,7 +39,17 @@
         <p><strong>說明:  </strong><span id="description"></span></p>
         <p><strong>異常:  </strong><span id="abnormal"></span></p>
 
-        <img id="image" />
+        <div class="inspection-image" id="inspection-image">
+            <h3>巡檢圖片</h3>
+            <div id="image_container"></div>
+        </div>
+
+        <!-- Lightbox overlay -->
+        <div id="lightbox" class="lightbox">
+            <span id="lightbox-close">&times;</span>
+            <img class="lightbox-content" id="lightbox-img" />
+        </div>
+        
     </div>
 
     <a href="inspection.html" class="back">再填寫一筆巡檢紀錄!</a>

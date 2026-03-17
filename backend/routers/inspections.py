@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, File, UploadFile, Form
+from typing import List
 from sqlalchemy.orm import Session
 from sqlalchemy import func, and_ # 年度統計 #紀錄編號
 from backend.database import get_db
@@ -11,20 +12,22 @@ from datetime import date, datetime #紀錄編號
 import shutil
 import os
 import time
+import uuid
+
 
 
 router = APIRouter(prefix="/api/inspections", tags=["inspections"])
 
 # 建立巡檢紀錄 #加入紀錄編號
 @router.post("/", response_model=schemas.InspectionOut)
-def create_inspection(
+async def create_inspection(
     date_value: date = Form(...),
     location: str = Form(...),
     item: str = Form(...),
     description: str = Form(...),
     is_abnormal: bool = Form(...),
     abnormal_count: int = Form(0),
-    file: UploadFile = File(None),
+    files: List[UploadFile] = File([]),
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user),
 ):
@@ -47,8 +50,6 @@ def create_inspection(
     sequence = str(count_today + 1).zfill(4)
     
     # 最終巡檢編號
-    # 把 sequence 改成依據 資料庫自增 id，or加上 timestamp
-    # inspection_number = f"{date_str}{status_code}{int(time.time()*1000)}"
     inspection_number = f"{date_str}{status_code}{sequence}"
 
     # 避免同一時間，兩個人同時送出紀錄
@@ -59,14 +60,19 @@ def create_inspection(
         sequence = str(count_today + 1).zfill(4)
         inspection_number = f"{date_str}{status_code}{sequence}"
 
-    image_url = None
+    image_urls = []
 
     # 存照片並上傳到s3
-    if file:
-        try:
-            image_url = upload_to_s3(file)
-        except Exception as e:
-            print("S3 上傳失敗", e)
+    for file in files:
+        if file:
+            try:
+                image_url = upload_to_s3(file)
+                image_urls.append(image_url)
+            except Exception as e:
+                print("S3 上傳失敗", e)
+
+            # 將多張照片時存成字串
+            image_url_string = ",".join(image_urls)
 
     new_inspection = models.Inspection(
         year = year,
@@ -76,7 +82,7 @@ def create_inspection(
         description=description,
         is_abnormal=is_abnormal,
         abnormal_count=abnormal_count,
-        image_url=image_url,
+        image_url=image_url_string,
         created_by=current_user.id,
         inspection_number=inspection_number,
     )

@@ -31,6 +31,7 @@ class InspectionBase(BaseModel):
     is_abnormal: bool
     description: Optional[str] = None
     inspection_number: str
+    image_url: Optional[str] = None
 
 class InspectionCreate(BaseModel):
     pass

@@ -37,7 +37,17 @@
         <input type="text" id="location" class="location">
 
         <div class="item_title">巡檢項目: </div>
-        <input type="text" id="item" class="item">
+        <select id="item" class="item">
+            <option value="">請選擇</option>
+            <option value="作業人員">作業人員</option>
+            <option value="機械設備">機械設備</option>
+            <option value="原物料">原物料</option>
+            <option value="環境">環境</option>
+            <option value="消防設備">消防設備</option>
+            <option value="其他">其他</option>
+        </select>
+        <!-- 當選擇"其他"才顯示輸入欄位 -->
+         <input type="text" id="other_item" class="other_item" placeholder="請填寫其他項目" style="display: none; margin-top: 5px;" />
 
         <div class="is_abnormmal_title">是否異常?</div>
         <label>
@@ -53,7 +63,7 @@
         <textarea id="description" class="description"></textarea>
 
         <div class="photo_title">現場照片: </div>
-        <input type="file" id="photo" accept="image/*">
+        <input type="file" id="photo" accept="image/*" multiple>
 
         <button onclick="createInspection()" class="submit">
             送出

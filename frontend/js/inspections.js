@@ -9,7 +9,15 @@ async function createInspection() {
     }
 
     const location = document.getElementById("location").value.trim();
-    const item = document.getElementById("item").value.trim();
+
+    // 監聽下拉式選單，顯示"其他"欄位
+    let item = document.getElementById("item").value;
+    const otherItem = document.getElementById("other_item").value.trim();
+
+    if (item === "其他") {
+        item = otherItem;
+    }
+
     const description = document.getElementById("description").value.trim();
 
     if (!location || !item || !description) {
@@ -18,19 +26,23 @@ async function createInspection() {
     }
 
     const formData = new FormData();
+
     formData.append("date_value", document.getElementById("date").value);
     formData.append("location", location);
     formData.append("item", item);
     formData.append("description", description);
+
     formData.append(
         "is_abnormal",
         document.querySelector('input[name="abnormal"]:checked').value === "true"
     );
     formData.append("abnormal_count", 0);
 
+    // 設定支援多張相片上傳
     const fileInput = document.getElementById("photo");
-    if (fileInput.files[0]) {
-        formData.append("file", fileInput.files[0]);
+
+    for (let i = 0; i < fileInput.files.length; i++) {
+        formData.append("files", fileInput.files[i]);
     }
 
     // 利用response 檢查回傳錯誤
@@ -53,6 +65,7 @@ async function createInspection() {
                 `inspection-success.html?number=${data.inspection_number}&abnormal=${data.is_abnormal}`;
         }
     }
+
 }
 
 function gotoInspection() {

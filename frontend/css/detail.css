@@ -14,16 +14,79 @@ body {
     padding: 25px;
     border-radius: 8px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    /* margin: 20px auto; */
 }
 
 .inspection-card p {
     margin: 10px 0;
+    font-size: 16px;
 }
 
-img {
-    width: 100%;
+.inspection-image {
+    text-align: center;
     margin-top: 15px;
-    border-radius: 6px;
+}
+
+.inspection-image h3 {
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+    font-size: 18px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.inspection-image img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Lightbox overlay */
+.lightbox {
+    display: none;
+    /* 預設隱藏 */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.lightbox.show {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    transform: scale(0.7);
+    transition: transform 0.3s ease;
+}
+
+.lightbox.show .lightbox-content {
+    transform: scale(3);
+}
+
+#lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
 }
 
 .back {
