@@ -111,25 +111,27 @@ async def create_inspection(
 
         # inspection_url = f"http://127.0.0.1:8000/static/inspection-history?number={new_inspection.inspection_number}"
 
-        message = f"""
-        Safetrack 巡檢異常!
-        巡檢編號: {new_inspection.inspection_number}
-        地點: {new_inspection.location}
-        項目: {new_inspection.item}
-        日期: {new_inspection.date}
+            message = message = f"""
+            Safetrack 巡檢異常!
+            巡檢編號: {new_inspection.inspection_number}
+            地點: {new_inspection.location}
+            項目: {new_inspection.item}
+            日期: {new_inspection.date}
 
-        請立即改善/處理~
-        查看完整記錄:
-        {inspection_url}
-        """
-        result = send_line_message(
-            message=message,
-                image_url=new_inspection.image_url,
-                to_id=setting.line_group_id
-        )
-        print("LINE send result = ", result)
+            請立即改善/處理~
+            查看完整記錄:
+            {inspection_url}
+            """
+            result = send_line_message(
+                message=message,
+                    image_url=new_inspection.image_url,
+                    to_id=setting.line_group_id
+            )
+            print("LINE send result = ", result)
+        else:
+            print("未發送 LINE：通知設定未開啟、未勾選異常通知，或 line_group_id 為空")
     else:
-        print("未發送 LINE：通知設定未開啟、未勾選異常通知，或 line_group_id 為空")
+        print("此筆為正常紀錄，不發送 LINE")
 
     return new_inspection
 

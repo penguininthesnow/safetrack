@@ -204,7 +204,7 @@ body {
 .menu-left {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 15px;
 }
 
 
@@ -247,6 +247,11 @@ body {
     color: white;
     border: none;
     cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .logout-btn:hover {

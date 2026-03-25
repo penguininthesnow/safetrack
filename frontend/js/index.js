@@ -113,3 +113,119 @@ async function loadOshaBulletin() {
 
 loadOshaBulletin();
 
+
+// ==============使用流程教學區塊 =========================
+document.addEventListener("DOMContentLoaded", () => {
+    const steps = document.querySelectorAll(".guide-step");
+    const lineFills = document.querySelectorAll(".step-line-fill");
+    const guideTitle = document.getElementById("guideTitle");
+    const guideDescription = document.getElementById("guideDescription");
+    const guideVideo = document.getElementById("guideVideo");
+    const guideVideoSource = document.getElementById("guideVideoSource");
+
+    const guideData = [
+        {
+            title: "Step 1 | 登入 / 註冊",
+            description: "使用者可先完成註冊或登入，進入系統後才能使用巡檢建立、通知設定與歷史紀錄查詢等功能。",
+            video: "videos/step1.mp4"
+        },
+        {
+            title: "Step 2｜會員設定與身分說明",
+            description: "在會員設定中可查看基本資料，並依照帳號身分區分為主管或現場人員，不同角色可使用的功能權限也會有所不同。",
+            video: "videos/step2.mp4"
+        },
+        {
+            title: "Step 3｜通知設定",
+            description: "使用者可設定通知方式，當巡檢紀錄出現異常時，系統可依設定自動發送提醒，提高異常處理效率。",
+            video: "videos/step3.mp4"
+        },
+        {
+            title: "Step 4｜填寫巡檢紀錄與 LINE 通知",
+            description: "現場人員可建立巡檢紀錄，填寫地點、項目、說明與上傳圖片；若有異常，系統可即時發送 LINE 通知給相關人員。",
+            video: "videos/step4.mp4"
+        },
+        {
+            title: "Step 5｜查看歷史紀錄與管理功能",
+            description: "使用者可查詢歷史巡檢紀錄，並進行預覽、修改、刪除，也能將資料下載成 CSV 檔，方便後續統計與管理。",
+            video: "videos/step5.mp4"
+        }
+    ];
+
+    let currentStep = 0;
+
+    function resetLines() {
+        lineFills.forEach(fill => {
+            fill.style.width = "0%";
+        });
+    }
+
+    function updateDoneSteps(stepIndex) {
+        steps.forEach((step, index) => {
+            step.classList.remove("active", "done");
+
+            if (index < stepIndex) {
+                step.classList.add("done");
+            } else if (index === stepIndex) {
+                step.classList.add("active");
+            }
+        });
+
+        lineFills.forEach((fill, index) => {
+            if (index < stepIndex) {
+                fill.style.width = "100%";
+            } else if (index > stepIndex) {
+                fill.style.width = "0%";
+            }
+        });
+    }
+
+
+    function updateGuide(stepIndex) {
+        const data = guideData[stepIndex];
+
+        currentStep = stepIndex;
+        updateDoneSteps(stepIndex);
+
+        guideTitle.textContent = data.title;
+        guideDescription.textContent = data.description;
+
+        guideVideo.pause();
+        guideVideoSource.src = data.video;
+        guideVideo.load();
+
+        guideVideo.play().catch(() => { });
+    }
+
+    function nextGuideStep() {
+        const nextStep = (currentStep + 1) % guideData.length;
+        updateGuide(nextStep);
+    }
+
+    // 影片播放時，讓當前線條跟著進度跑
+    guideVideo.addEventListener("timeupdate", () => {
+        if (currentStep < lineFills.length && guideVideo.duration) {
+            const progress = (guideVideo.currentTime / guideVideo.duration) * 100;
+            lineFills[currentStep].style.width = `${progress}%`;
+        }
+    });
+
+    // 影片播完自動跳下一步
+    guideVideo.addEventListener("ended", () => {
+        if (currentStep < lineFills.length) {
+            lineFills[currentStep].style.width = "100%";
+        }
+        nextGuideStep();
+    });
+
+    // 點 step 手動切換
+    steps.forEach((step, index) => {
+        step.addEventListener("click", () => {
+            updateGuide(index);
+        });
+    });
+
+    resetLines();
+    updateGuide(0);
+
+});
+

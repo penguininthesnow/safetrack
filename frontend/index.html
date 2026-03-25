@@ -24,14 +24,83 @@
 </section>
 
 <!-- 漢堡選單設計 -->
-<!-- <div class="tag" id="tag" onclick="openSidebar()">
-    <img src="images/menu.png" width="30px" height="30px" />
-</div> -->
+<div class="tag" id="tag" onclick="openSidebar()" style="display: none;">
+    <img src="./images/menu.png" width="30px" height="30px" />
+</div>
 <!-- 漢堡選單內容設計 -->
  <!-- Sidebar 背景遮罩 -->
-<!-- <div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div> -->
+<div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()" style="display: none;"></div>
 
 <!-- Sidebar 主體 -->
+<div id="sidebar" class="sidebar" style="display: none;">
+    <div class="sidebar-content">
+        <h3><img src="./images/menu.png" width="30" height="30">功能選單
+        </h3>
+
+        <div class="home">
+            <img src="./images/home_2.png" width="20px" height="20px" />
+            <a href="index.html">首頁</a>
+        </div>
+        <!-- 巡檢系統 主項目 -->
+        <div class="menu-item has-submenu">
+            <div class="menu-link" onclick="handleInspectionClick(event)">
+                <div class="menu-left">
+                    <img src="./images/list.png" width="20" height="20">
+                    巡檢系統 
+                </div>
+                <img class="arrow" src="./images/right_arrow.png" width="10px" height="10px" />
+            </div>
+            <!-- 第一層子選單 -->
+            <div class="submenu">
+                <a href="#" onclick="goCreateInspection(event)">
+                    建立巡檢紀錄
+                </a>
+
+                <div class="submenu-item has-submenu-right">
+                    <div class="submenu-link" onclick="goHistoryPage(event)">
+                        查詢巡檢紀錄 <img src="./images/right_arrow.png" width="10px" height="10px" />
+                    </div>
+                    <!-- 第二層 右側滑出 -->
+                    <div class="submenu-right">
+                        <a href="#" onclick="goHistoryPage(event)">
+                            查詢歷年巡檢紀錄
+                        </a>
+                        <div class="submenu-right-year" id="yearList">
+                            <!-- JS動態生成年份 -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="warning">
+            <img src="./images/warning_2.png" width="20" height="20">
+            <a href="inspection-history.html?abnormal=true">異常紀錄</a>
+        </div>
+        <div class="setting">
+            <img src="./images/settings_2.png" width="20" height="20">
+            <a href="member-profile.html">會員設定</a>
+        </div>
+
+        <div class="notification-setting" id="notificationSettingMenu" style="display: none;">
+            <img src="./images/line.png" width="20" height="20">
+            <a href="notification-settings.html">通知設定</a>
+        </div>
+
+        <div id="logoutArea" style="display:none;">
+            <hr>
+            <button class="logout-btn" onclick="logout()">
+                登出
+                 <img src="./images/sign out.png" width="20" height="20">
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Sidebar 主體 -->
+
+<!-- ========================================== -->
 
 <div class="carousel">
 
@@ -77,7 +146,78 @@
     <div id="osha-list">載入中... ...</div>
 </section>
 
-</div>   
+<hr />
+
+<!-- 使用教學導覽區塊 -->
+<section class="guide-board">
+    <h2>How It Run ?</h2>
+
+    <!-- step流程列 -->
+    <div class="guide-steps" id="guideSteps">
+        <div class="guide-step active" data-step="0">
+            <div class="step-number">Step 1</div>
+            <div class="step-label">登入  / 註冊</div>
+        </div>
+
+        <div class="step-line">
+            <div class="step-line-fill"></div>
+        </div>
+
+
+        <div class="guide-step" data-step="1">
+            <div class="step-number">Step 2</div>
+            <div class="step-label">會員設定  / 身分識別</div>
+        </div>
+
+        <div class="step-line">
+            <div class="step-line-fill"></div>
+        </div>
+
+
+        <div class="guide-step" data-step="2">
+            <div class="step-number">Step 3</div>
+            <div class="step-label">通知設定</div>
+        </div>
+
+        <div class="step-line">
+            <div class="step-line-fill"></div>
+        </div>
+
+        <div class="guide-step" data-step="3">
+            <div class="step-number">Step 4</div>
+            <div class="step-label">建立巡檢紀錄與 LINE 通知</div>
+        </div>
+
+        <div class="step-line">
+            <div class="step-line-fill"></div>
+        </div>
+
+
+        <div class="guide-step" data-step="4">
+            <div class="step-number">Step 5</div>
+            <div class="step-label">歷史巡檢紀錄 / 預覽 / 修改 / 刪除 / CSV 檔下載</div>
+        </div>
+    </div>
+
+    <!-- 內容說明區 -->
+    <div class="guide-content">
+        <div class="guide-text">
+            <h3 id="guideTitle">Step 1 | 登入 / 註冊</h3>
+            <p id="guideDescription">
+                使用者可先完成註冊或登入，進入系統後才能使用巡檢建立、通知設定與歷史紀錄查詢等功能。
+            </p>
+        </div>
+
+        <div class="guide-video">
+            <video id="guideVideo" controls muted playsinline>
+                <source  id="guideVideoSource" src="videos/step1.mp4" type="video/mp4">
+                您的瀏覽器不支援影片播放。 
+            </video>
+        </div>
+    </div>
+</section>
+
+
 
 
 <!------------------- 會員系統 -------------------------->
