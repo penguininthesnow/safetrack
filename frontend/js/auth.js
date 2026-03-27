@@ -192,37 +192,6 @@ function toggleMode() {
     }
 }
 
-// function updateUserUI() {
-//     const email = localStorage.getItem("email");
-//     const username = localStorage.getItem("username");
-//     const userArea = document.getElementById("userArea");
-//     const switchText = document.getElementById("switchText");
-//     const switchLink = document.querySelector(".modal a");
-//     const token = localStorage.getItem("token");
-
-//     if (username) {
-//         userArea.innerText = username + "，您好";
-
-//         // modal 下方改成登出
-//         switchText.innerText = "";
-//         switchLink.innerText = "登出";
-//         switchLink.onclick = logout;
-//     } else {
-//         userArea.innerHTML =
-//             '<img src="images/signup.png" width="30" height="30">';
-//         switchText.innerText = "還沒有帳號?";
-//         switchLink.innerText = "點此註冊";
-//         switchLink.onclick = toggleMode;
-//     }
-//     // sidebar:讓登入時，顯示登出
-//     if (token) {
-//         document.getElementById("logoutArea").style.display = "block";
-//     } else {
-//         document.getElementById("logoutArea").style.display = "none";
-//     }
-// }
-
-
 function updateUserUI() {
     const email = localStorage.getItem("email");
     const username = localStorage.getItem("username");
@@ -285,4 +254,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function homepage() {
     window.location.href = "index.html";
+}
+function gotoInspection() {
+    const token = localStorage.getItem("token")
+
+    if (!token) {
+        openModal();
+        return;
+    }
+
+    // 已登入 => 導向巡檢頁
+    window.location.href = "inspection.html"
 }

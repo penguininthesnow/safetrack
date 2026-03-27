@@ -49,6 +49,24 @@
     margin-bottom: 10px;
 }
 
+#file-name-list {
+    margin-top: 8px;
+    margin-bottom: 12px;
+    padding-left: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+#file-name-list li {
+    margin-bottom: 4px;
+    word-break: break-all;
+}
+
+.other_item {
+    width: 100%;
+    max-width: 300px;
+}
+
 .submit {
     margin-top: 15px;
     /* margin-left: 500px; */
