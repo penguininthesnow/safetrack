@@ -353,10 +353,7 @@ footer {
     justify-content: center;
 }
 
-.guest-only,
-.login-only {
-    display: none;
-}
+/*  */
 
 .mobile-topbar {
     visibility: hidden;
