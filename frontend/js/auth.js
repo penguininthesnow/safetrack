@@ -281,7 +281,7 @@ function updateUserUI() {
     }
     const mobileTopbar = document.getElementById("mobileTopbar");
     if (mobileTopbar) {
-        mobileTopbar.classList("ready");
+        mobileTopbar.classList.add("ready");
     }
 }
 
