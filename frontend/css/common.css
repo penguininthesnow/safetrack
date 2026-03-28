@@ -99,7 +99,7 @@ body {
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
     display: none;
-    z-index: 998;
+    z-index: 1100;
 }
 
 /* Sidebar 主體 */
@@ -113,7 +113,7 @@ body {
     background: white;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
     transition: left 0.3s ease;
-    z-index: 999;
+    z-index: 1101;
 }
 
 .sidebar-content {
@@ -491,7 +491,7 @@ footer {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         z-index: 1001;
 
-        position: relative;
+        /* position: relative; */
         -webkit-tap-highlight-color: transparent;
     }
 
@@ -506,24 +506,26 @@ footer {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+        display: flex;
+        align-items: center;
     }
 
-    .mobile-left {
+    /* .mobile-left {
         min-width: 60px;
-    }
-
-    .mobile-center {
-        flex: 1;
-        justify-content: center;
     }
 
     .mobile-right {
         min-width: 72px;
         justify-content: flex-end;
+    } */
+    .mobile-left,
+    .mobile-right {
+        display: flex;
+        align-items: center;
     }
 
     .topbar-brand {
-        font-size: 40px;
+        font-size: 35px;
         font-weight: 700;
         color: white;
     }
@@ -538,6 +540,11 @@ footer {
         align-items: center;
         justify-content: center;
         cursor: pointer;
+
+        box-shadow:
+            3px 3px 12px rgba(0, 0, 0, 0.2),
+            inset 0 0 15px rgba(255, 255, 255, 0.7);
+        background-color: #888;
     }
 
     .mobile-icons {
