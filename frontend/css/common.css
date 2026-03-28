@@ -353,6 +353,19 @@ footer {
     justify-content: center;
 }
 
+.guest-only,
+.login-only {
+    display: none;
+}
+
+.mobile-topbar {
+    visibility: hidden;
+}
+
+.mobile-topbar.ready {
+    visibility: visible;
+}
+
 /* ===== Footer ===== */
 
 @media (max-width: 1200px) {

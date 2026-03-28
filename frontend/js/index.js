@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }, {
-        threshold: 0.4
+        threshold: 0.9
     });
 
     if (guideBoard) {

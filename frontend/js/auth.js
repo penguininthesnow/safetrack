@@ -279,25 +279,35 @@ function updateUserUI() {
             sidebarGreeting.innerText = "";
         }
     }
+    const mobileTopbar = document.getElementById("mobileTopbar");
+    if (mobileTopbar) {
+        mobileTopbar.classList("ready");
+    }
 }
 
-// 刷新頁面
-window.onload = async function () {
+
+document.addEventListener("DOMContentLoaded", async function () {
     const token = localStorage.getItem("token");
 
+    // ========= 權限檢查 (未登入不能進 inspection) ======
+    if (window.location.pathname.includes("inspection.html") && !token) {
+        window.location.href = "index.html";
+        return;
+    }
+    // ===== 如果有 token 但沒 username → 重新抓會員資料 =====
     if (token && !localStorage.getItem("username")) {
         await fetchUserInfo();
     }
 
+    // ===== 更新 UI =====
     updateUserUI();
-};
 
-document.addEventListener("DOMContentLoaded", function () {
-    const token = localStorage.getItem("token");
-
-    if (window.location.pathname.includes("inspection.html") && !token) {
-        window.location.href = "index.html";
+    // ===== 避免 topbar 閃爍（雙影）=====
+    const mobileTopbar = document.getElementById("mobileTopbar");
+    if (mobileTopbar) {
+        mobileTopbar.classList.add("ready");
     }
+
 });
 
 
