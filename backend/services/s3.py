@@ -29,14 +29,26 @@ def upload_to_s3(file: UploadFile):
     if not cloudfront_url:
         raise Exception("CLOUDFRONT_URL not set")
 
-    file_extension = file.filename.split(".")[-1]
+    original_filename = file.filename or ""
+    file_extension = original_filename.split(".")[-1].lower() if "." in original_filename else "jpg"
     unique_filename = f"{uuid4()}.{file_extension}"
+
+    guessed_content_type, _ =mimetypes.guess_type(original_filename)
+    content_type = guessed_content_type or file.content_type or "application/octet-steam"
+
+    print("原始檔名 =", original_filename)
+    print("前端 content_type =", file.content_type)
+    print("guess content_type =", guessed_content_type)
+    print("實際上傳 ContentType =", content_type)
+    print("S3 unique_filename =", unique_filename)
+
+    file.file.seek(0)
 
     s3_client.upload_fileobj(
         file.file,
         bucket_name,
         unique_filename,
-        ExtraArgs={"ContentType": file.content_type or "application/octet-stream"},
+        ExtraArgs={"ContentType": content_type},
     )
 
     return f"{cloudfront_url}/{unique_filename}"

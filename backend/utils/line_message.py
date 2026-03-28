@@ -16,44 +16,55 @@ def send_line_message(message: str, image_url=None, to_id: str = None):
     :parm image_url: 可選，圖片 url
     :param to_id: 
     """
-    url = "https://api.line.me/v2/bot/message/push"
+    line_api_url = "https://api.line.me/v2/bot/message/push"
     
     headers = {
         "Authorization": f"Bearer {CHANNEL_ACCESS_TOKEN}",
         "Content-Type": "application/json"
     }
 
-    # to = to_id or GROUP_ID
-
-    messages = [
-        {
-            "type": "text",
-            "text": message
-        }
-    ]
-
-    # 加圖片
-    if image_url:
-        messages.append({
-            "type": "image",
-            "originalContentUrl": image_url,
-            "previewImageUrl": image_url
-        })
-
     if not to_id:
         print("未提供 to_id，無法發送 LINE 訊息")
         return None
 
-    data = {
+    messages = []
+
+    # 文字訊息
+    messages.append({
+        "type": "text",
+        "text": message
+    })
+
+    # 加圖片(支援上傳3張圖片)
+    if image_url:
+        image_urls = image_url.split(",")
+
+        for img_url in image_urls:
+            img_url = img_url.strip()
+
+            if img_url.startswith("https://"):
+                messages.append({
+                    "type": "image",
+                    "originalContentUrl": img_url,
+                    "previewImageUrl": img_url                
+                })
+            else:
+                print("略過非 https 圖片網址:", img_url)
+    # LINE 最多可以上傳5個 messages
+    messages = messages[:5]
+
+    payload = {
         "to": to_id,
         "messages": messages
     }
 
+    print("送 LINE messages =", messages)
+
     try:
         response = requests.post(
-            url,
+            line_api_url,
             headers=headers,
-            json=data,
+            json=payload,
             timeout=(3, 5)
         )
 
@@ -66,7 +77,7 @@ def send_line_message(message: str, image_url=None, to_id: str = None):
 
         try:
             return response.json()
-        except:
+        except Exception:
             return {"status_code": response.status_code, "text": response.text}
         
     except requests.exceptions.Timeout:

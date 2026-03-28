@@ -130,7 +130,7 @@ async def create_inspection(
 
         # inspection_url = f"http://127.0.0.1:8000/static/inspection-history?number={new_inspection.inspection_number}"
 
-            message = message = f"""
+            message = f"""
             Safetrack 巡檢異常!
             巡檢編號: {new_inspection.inspection_number}
             地點: {new_inspection.location}
@@ -142,10 +142,14 @@ async def create_inspection(
             {inspection_url}
             """
 
+            print("準備送 LINE")
+            print("LINE group id =", setting.line_group_id)
+            print("LINE image_url =", new_inspection.image_url)
+
             background_tasks.add_task(
                 send_line_message,
                 message=message,
-                image_url=new_inspection.image_url,
+                image_url=new_inspection.image_url.split(",") if new_inspection.image_url else [],
                 to_id=setting.line_group_id
             )
             print("LINE 背景任務已加入")
