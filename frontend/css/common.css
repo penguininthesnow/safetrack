@@ -486,7 +486,7 @@ footer {
         justify-content: space-between;
         padding: 0 12px;
         box-sizing: border-box;
-        background: #fff;
+        background: #2d4056;
         border-bottom: 1px solid #e5e5e5;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         z-index: 1001;
@@ -516,7 +516,7 @@ footer {
     }
 
     .topbar-brand {
-        font-size: 18px;
+        font-size: 45px;
         font-weight: 700;
         color: #333;
     }
