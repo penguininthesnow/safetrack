@@ -133,9 +133,11 @@ body {
         display: flex;
         flex-direction: column;
         gap: 10px;
+        align-items: stretch;
     }
 
     .router a {
+        display: block;
         width: 100%;
         text-align: center;
         padding: 12px;

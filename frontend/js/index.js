@@ -122,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const guideDescription = document.getElementById("guideDescription");
     const guideVideo = document.getElementById("guideVideo");
     const guideVideoSource = document.getElementById("guideVideoSource");
+    const guideBoard = document.querySelector(".guide-board");
 
     const guideData = [
         {
@@ -152,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     let currentStep = 0;
+    let hasStartedGuideVideo = false;
 
     function resetLines() {
         lineFills.forEach(fill => {
@@ -180,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    function updateGuide(stepIndex) {
+    function updateGuide(stepIndex, shouldAutoPlay = true) {
         const data = guideData[stepIndex];
 
         currentStep = stepIndex;
@@ -193,12 +195,14 @@ document.addEventListener("DOMContentLoaded", () => {
         guideVideoSource.src = data.video;
         guideVideo.load();
 
-        guideVideo.play().catch(() => { });
+        if (shouldAutoPlay) {
+            guideVideo.play().catch(() => { });
+        }
     }
 
     function nextGuideStep() {
         const nextStep = (currentStep + 1) % guideData.length;
-        updateGuide(nextStep);
+        updateGuide(nextStep, true);
     }
 
     // 影片播放時，讓當前線條跟著進度跑
@@ -220,12 +224,27 @@ document.addEventListener("DOMContentLoaded", () => {
     // 點 step 手動切換
     steps.forEach((step, index) => {
         step.addEventListener("click", () => {
-            updateGuide(index);
+            hasStartedGuideVideo = true;
+            updateGuide(index, true);
         });
     });
 
     resetLines();
-    updateGuide(0);
+    updateGuide(0, false);
 
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasStartedGuideVideo) {
+                hasStartedGuideVideo = true;
+                guideVideo.play().catch(() => { });
+            }
+        });
+    }, {
+        threshold: 0.4
+    });
+
+    if (guideBoard) {
+        observer.observe(guideBoard);
+    }
 });
 
