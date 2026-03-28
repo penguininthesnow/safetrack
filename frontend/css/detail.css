@@ -109,16 +109,6 @@ body {
     background-color: #3666a5;
 }
 
-/* .back {
-    display: inline-block;
-    margin-top: 20px;
-}
-
-.index {
-    display: inline-block;
-    margin-top: 20px;
-    margin-left: 15px;
-} */
 
 /* 平板版 */
 @media (max-width:1200px) {
@@ -137,5 +127,18 @@ body {
 @media (max-width:360px) {
     .inspection-detail {
         width: 80%;
+    }
+
+    .router {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .router a {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        border-radius: 8px;
     }
 }
