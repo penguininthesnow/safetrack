@@ -142,14 +142,14 @@ async def create_inspection(
             {inspection_url}
             """
 
-            print("準備送 LINE")
+            print("準備送 LINE image_url =", new_inspection.image_url)
             print("LINE group id =", setting.line_group_id)
-            print("LINE image_url =", new_inspection.image_url)
+            print("type=", type(new_inspection.image_url))
 
             background_tasks.add_task(
                 send_line_message,
                 message=message,
-                image_url=new_inspection.image_url.split(",") if new_inspection.image_url else [],
+                image_url=new_inspection.image_url or "",
                 to_id=setting.line_group_id
             )
             print("LINE 背景任務已加入")

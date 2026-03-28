@@ -27,29 +27,40 @@ def send_line_message(message: str, image_url=None, to_id: str = None):
         print("未提供 to_id，無法發送 LINE 訊息")
         return None
 
-    messages = []
+    messages = [
+        {
+            "type": "text",
+            "text": message
+        }
+    ]
 
     # 文字訊息
-    messages.append({
-        "type": "text",
-        "text": message
-    })
+    # messages.append({
+    #     "type": "text",
+    #     "text": message
+    # })
+
+    image_urls = []
 
     # 加圖片(支援上傳3張圖片)
     if image_url:
-        image_urls = image_url.split(",")
+        if isinstance(image_url, str):
+            image_urls = [u.strip() for u in image_url.split(",") if u.strip()]
+        elif isinstance(image_url, list):
+            image_urls = [str(u).strip() for u in image_url if str(u).strip()]
+        else:
+            print("未知的 image_url 型別:", type(image_url))
 
-        for img_url in image_urls:
-            img_url = img_url.strip()
+    for img_url in image_urls:
+        if img_url.startswith("https://"):
+            messages.append({
+                "type": "image",
+                "originalContentUrl": img_url,
+                "previewImageUrl": img_url
+            })
+        else:
+            print("略過非 https 圖片網址:", img_url)
 
-            if img_url.startswith("https://"):
-                messages.append({
-                    "type": "image",
-                    "originalContentUrl": img_url,
-                    "previewImageUrl": img_url                
-                })
-            else:
-                print("略過非 https 圖片網址:", img_url)
     # LINE 最多可以上傳5個 messages
     messages = messages[:5]
 
@@ -58,6 +69,8 @@ def send_line_message(message: str, image_url=None, to_id: str = None):
         "messages": messages
     }
 
+    print("send_line_message image_url type =", type(image_url))
+    print("send_line_message image_urls =", image_urls)
     print("送 LINE messages =", messages)
 
     try:
