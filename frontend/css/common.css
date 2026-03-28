@@ -490,6 +490,8 @@ footer {
         border-bottom: 1px solid #e5e5e5;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         z-index: 1001;
+
+        -webkit-tap-highlight-color: transparent;
     }
 
     .mobile-left,
@@ -572,12 +574,32 @@ footer {
         text-decoration: underline;
     }
 
-    .guest-only {
+    /* .guest-only {
         display: none;
     }
 
     .login-only {
         display: none;
+    } */
+
+
+
+
+
+
+    .mobile-topbar,
+    .mobile-topbar * {
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .topbar-btn,
+    .topbar-icon,
+    .mobile-left,
+    .mobile-center,
+    .mobile-right {
+        outline: none;
     }
 
 

@@ -247,7 +247,7 @@ function updateUserUI() {
         });
 
         loginOnlyEls.forEach(el => {
-            el.style.display = "";
+            el.style.display = "flex";
         });
 
         if (sidebarUserBox) {
@@ -259,7 +259,12 @@ function updateUserUI() {
         }
     } else {
         guestOnlyEls.forEach(el => {
-            el.style.display = "";
+            if (el.classList.contains("mobile-icons")) {
+                el.style.display = "flex"
+            } else {
+                el.style.display = "flex";
+            }
+
         });
 
         loginOnlyEls.forEach(el => {
