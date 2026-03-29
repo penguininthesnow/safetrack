@@ -13,7 +13,14 @@ from backend.routers.osha import router as osha_router
 
 print(engine.url) #查找資料庫
 
-app = FastAPI(title="SafeTrack API")
+app = FastAPI(
+    title="SafeTrack API",
+
+    docs_url="/api/docs",
+    redoc_url="/api/redoc",
+    openapi_url="/api/openapi.json"
+)
+
 
 # CORS
 app.add_middleware(
